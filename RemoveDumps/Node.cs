@@ -1,26 +1,41 @@
+using System.Collections.Generic;
+
 namespace RemoveDumps
 {
     public class Node
     {
-        private Node next = null;
+        public Node Next { get; set; } = null;
 
-        private int data;
+        public int Data { get; set; }
 
         public Node(int data)
         {
-            this.data = data;
+            this.Data = data;
         }
 
-        void AppendToTail(int data)
+        public void AppendToTail(int data)
         {
             Node end = new Node(data);
             Node node = this;
-            while (node.next != null)
+            while (node.Next != null)
             {
-                node = node.next;
+                node = node.Next;
             }
 
-            node.next = end;
+            node.Next = end;
+        }
+
+        public int[] ToDataArray()
+        {
+            var dataList = new List<int>();
+            var currentNode = this;
+            while (currentNode != null)
+            {
+                dataList.Add(currentNode.Data);
+                currentNode = currentNode.Next;
+            }
+
+            return dataList.ToArray();
         }
     }
 }

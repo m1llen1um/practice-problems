@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RemoveDumps
 {
     /*
@@ -9,6 +11,27 @@ namespace RemoveDumps
 
     public static class Solution
     {
+        public static Node RemoveDumpsWithTempBuffer(Node head)
+        {
+            var nodeBuffer = new HashSet<int>();
+            Node previousNode = null;
+            Node currentNode = head;
+            while (currentNode != null)
+            {
+                if (nodeBuffer.Contains(currentNode.Data))
+                {
+                    previousNode.Next = currentNode.Next;
+                    currentNode = currentNode.Next;
+                }
+                else
+                {
+                    nodeBuffer.Add(currentNode.Data);
+                    previousNode = currentNode;
+                    currentNode = currentNode.Next;
+                }
+            }
 
+            return head;
+        }
     }
 }
