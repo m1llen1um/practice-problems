@@ -32,8 +32,26 @@ namespace SortLinkedList
             currentNode.NextNode = newNode;
         }
 
+        public static void PushNode(LinkedListNode head, LinkedListNode node)
+        {
+            if (head == null)
+            {
+                head = node;
+                return;
+            }
+
+            var currentNode = head;
+            while (currentNode.NextNode != null)
+            {
+                currentNode = currentNode.NextNode;
+            }
+
+            currentNode.NextNode = node;
+        }
+
         public void Sort()
         {
+            var (a, b) = SplitLinkedList(Head);
             /*
             Merge sort with fixed distance runner approach for splitting
             8 3 1 4 6 1 4 3
@@ -67,21 +85,23 @@ namespace SortLinkedList
 
             var first = list;
             var second = list.NextNode;
-
-            var firstTail = first;
-            var secondTail = second;
-            while (NotEol(firstTail.NextNode.NextNode) && NotEol(secondTail.NextNode.NextNode))
+            var currentNode = list.NextNode.NextNode;
+            while (!EndOfList(currentNode.NextNode.NextNode) && !EndOfList(currentNode.NextNode.NextNode))
             {
-                // link fist and second next
+                PushNode(first, currentNode);
+                PushNode(second, currentNode.NextNode);
+                currentNode = currentNode.NextNode.NextNode;
             }
 
-            if(NotEol(firstTail.NextNode.NextNode)){
-                // link first next
+            if (!EndOfList(currentNode.NextNode))
+            {
+                PushNode(first, currentNode.NextNode);
             }
 
             return (first, second);
         }
-        private bool NotEol(LinkedListNode node)
+
+        private bool EndOfList(LinkedListNode node)
         {
             return node.NextNode == null;
         }
