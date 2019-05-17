@@ -15,7 +15,8 @@ namespace SortLinkedList
             s.PushNode(4);
             s.PushNode(5);
             s.PushNode(6);
-            s.PushNode(1);
+            s.PushNode(7);
+            s.PushNode(8);
             s.Sort();
         }
     }

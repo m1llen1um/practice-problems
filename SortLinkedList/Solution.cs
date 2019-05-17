@@ -52,23 +52,6 @@ namespace SortLinkedList
         public void Sort()
         {
             var (a, b) = SplitLinkedList(Head);
-            /*
-            Merge sort with fixed distance runner approach for splitting
-            8 3 1 4 6 1 4 3
-                        * ^
-8 1 6 4
-3 4 1 3
-
-            8 3 1 4 6 1 4
-                    * ^
-8 1 6 4
-3 4 1
-
-            1 2 3
-            * ^
-
-             */
-
         }
 
         private (LinkedListNode firstLinkedList, LinkedListNode secondLinkedList) SplitLinkedList(LinkedListNode list)
@@ -83,22 +66,36 @@ namespace SortLinkedList
                 return (list, null);
             }
 
-            var first = list;
-            var second = list.NextNode;
+            var firstHead = list; var fistTail = firstHead;
+            var secondHead = list.NextNode; var secondTail = secondHead;
             var currentNode = list.NextNode.NextNode;
-            while (!EndOfList(currentNode.NextNode.NextNode) && !EndOfList(currentNode.NextNode.NextNode))
+            while (!EndOfList(currentNode) && !EndOfList(currentNode.NextNode))
             {
-                PushNode(first, currentNode);
-                PushNode(second, currentNode.NextNode);
+                fistTail.NextNode = currentNode;
+                fistTail = fistTail.NextNode;
+
+                secondTail.NextNode = currentNode.NextNode;
+                secondTail = secondTail.NextNode;
+
                 currentNode = currentNode.NextNode.NextNode;
             }
 
-            if (!EndOfList(currentNode.NextNode))
+            if (currentNode != null)
             {
-                PushNode(first, currentNode.NextNode);
+                fistTail.NextNode = currentNode;
+                fistTail = fistTail.NextNode;
             }
 
-            return (first, second);
+            if (currentNode.NextNode != null)
+            {
+                secondTail.NextNode = currentNode.NextNode;
+                secondTail = secondTail.NextNode;
+            }
+
+            fistTail.NextNode = null;
+            secondTail.NextNode = null;
+
+            return (firstHead, secondHead);
         }
 
         private bool EndOfList(LinkedListNode node)
