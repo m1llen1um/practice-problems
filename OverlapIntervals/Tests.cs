@@ -1,14 +1,14 @@
 using System;
 using Xunit;
 
-namespace Template
+namespace OverlapIntervals
 {
     public class Tests
     {
         [Fact]
         public void Test()
         {
-
+            Solution.IntervalsToRemove();
         }
     }
 }
