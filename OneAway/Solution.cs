@@ -8,9 +8,10 @@ remove a character, or replace a character. Given two strings, write a function 
 one edit (or zero edits) away.
 EXAMPLE
 -> true
-pales. pale -> true
-pale, pIe pale. bale -> true
-pale. bake -> false
+pales, pale -> true
+pale, pIe -> true
+pale, bale -> true
+pale, bake -> false
 ****************************************************************************************************/
     public class Solution
     {
